@@ -1,1 +1,1 @@
-# test_cs_361
+# CS 361 Final Project

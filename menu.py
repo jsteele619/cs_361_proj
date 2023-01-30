@@ -1,5 +1,4 @@
-from message import send_message
-
+from message import messaging
 
 def menu():
 
@@ -11,6 +10,7 @@ def menu():
     print(" - To Sign up a new account, press 4 then enter.")
     print(" - To see more options, press 5 then enter.")
     print(" - To return to the main menu, press h then enter at any time.")
+    print(" - To quit this application, press q then enter.")
     
     key_press = input()
     while key_press:
@@ -32,6 +32,8 @@ def menu():
         elif key_press == "h":
             key_press = False
             menu()
+        elif key_press == "q":
+            return
         else:
             print("Please try again. That wasn't a valid input.")
             key_press = input()
@@ -44,8 +46,8 @@ def text_message():
         if return_to_menu(phone_num):
             wants_continue = False
             menu()
-        if check_number(key_num) is False:
-            print("That wasn't a number")
+        if check_number(phone_num) is False:
+            print("That wasn't a valid ten digit number. ")
             continue
         print("You entered: " + phone_num)
         print("Is that correct? Press 1 for yes, 2 for no.")
@@ -67,7 +69,9 @@ def text_message():
         key_num = input()
         if key_num == "1":
             new_cond = False
-            send_message(phone_num, message)
+            phone_num = "+" + phone_num
+            receive = "+14159919818"
+            messaging(message, phone_num, receive)  # body, send, receive
         elif key_num == "2":
             continue
         elif return_to_menu(key_num):
@@ -76,7 +80,6 @@ def text_message():
 
 def email():
     return
-
 
 def sign_up():
     print("\nWelcome to our signup menu:")
@@ -125,14 +128,14 @@ def login():
             cond = False
             menu()
         while new_cond:
-            print("Please enter your pin.")
+            print("Please enter your pin number of four digits.")
             pin = input()
             if return_to_menu(pin):
                 cond, new_cond = False, False
                 menu()
             if check_four(pin) is False:
                 count +1
-                print("That pin was incorrect\n")
+                print("That pin was either incorrect.\n")
                 if count == 3:
                     print("You have entered your pin too many times. Return to the main menu.")
                     cond, new_cond = False, False
@@ -149,7 +152,7 @@ def login():
             
             cond, new_cond = False, False
             login_backend(user, pin)
-        return
+        menu()
 
 def more_options():
     print("There are no more options.")

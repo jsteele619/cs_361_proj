@@ -69,9 +69,11 @@ def text_message():
         key_num = input()
         if key_num == "1":
             new_cond = False
-            phone_num = "+" + phone_num
+            phone_num = "+1" + phone_num
             receive = "+14159919818"
-            messaging(message, phone_num, receive)  # body, send, receive
+            messaging(message, receive, message)  # body, send, receive
+            print("Message sent. Thank you")
+            menu()
         elif key_num == "2":
             continue
         elif return_to_menu(key_num):

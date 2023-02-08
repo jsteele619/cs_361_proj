@@ -12,7 +12,7 @@ auth_token = password
 client = Client(account_sid, auth_token)
 
 
-def messaging(send, receive, body):
+def messaging(body, to = "+14159919818", from_ = phone_number):
     message = client.messages.create(
     body = body, 
     to = "+14159919818", 

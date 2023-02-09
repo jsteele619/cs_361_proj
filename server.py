@@ -8,16 +8,20 @@ context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind("tcp://*:5560")
 
-print("Connected to server")
-
+print("Listening at port 5560")
 
 while True:
-
     info = socket.recv_json()
-    print(info)
-    time.sleep(3)
-    socket.send_json({'response': 200})
-    messaging(body = info['heelo'])
+    val = check_number(info["phone"])
+    if val is False:
+        socket.send_json({'response': 400, 'message': "phone number wasn't correct"})
+        continue
+    try:
+        socket.send_json({'response': 200, 'message': "successful, check your phone"})
+    except Exception as e:
+        socket.send_json({'response': 400, 'message': e})
+
+
 
 
 

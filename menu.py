@@ -4,10 +4,6 @@ import zmq
 
 class User:
     def __init__(self) -> None:
-        self.message
-        self.phone_num
-        self.user_name
-        self.pin
         address_book = {}
         self.address_book = address_book
         pass
@@ -98,6 +94,7 @@ class User:
             elif key_num == "2":
                 continue
             elif key_num == "3":
+                self.message = message
                 self.comm_translate(self.message, "German")
                 print("\nPress 1 to send. Press 2 to edit. Press h for more options.")
                 key_num = input()
@@ -124,10 +121,13 @@ class User:
                 new_cond = False
                 self.menu()
             else:
+                print("\nYour input wasn't accepted.")
                 continue 
 
     def email(self):
-        return
+        print("This feature hasn't been implemented yet.")
+        time.sleep(3)
+        self.menu()
     
     def comm_translate(self, text, lang):
 
@@ -223,7 +223,8 @@ class User:
         return
 
     def signed_menu(self):
-        return
+        print("This hasn't been implemented yet.")
+        self.menu()
 
     def sign_up_backend(self, new_user, pin):
         return True

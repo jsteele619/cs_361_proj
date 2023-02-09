@@ -1,4 +1,5 @@
 import menu
 import message
 
-menu.menu()
+new = menu.User()
+new.menu()

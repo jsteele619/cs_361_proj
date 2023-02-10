@@ -12,7 +12,7 @@ print("Listening at port 5560")
 
 while True:
     info = socket.recv_json()
-    val = check_number(info["phone"])
+    val = check_number(int(info["phone"]))
     if val is False:
         socket.send_json({'response': 400, 'message': "phone number wasn't correct"})
         continue

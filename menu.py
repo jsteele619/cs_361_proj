@@ -95,13 +95,14 @@ class User:
                 continue
             elif key_num == "3":
                 self.message = message
-                self.comm_translate(self.message, "German")
+                translation = self.comm_translate(message, "German")
+                print(translation)
                 print("\nPress 1 to send. Press 2 to edit. Press h for more options.")
                 key_num = input()
                 if key_num == "1":
                     new_cond = False
                     try:
-                        messaging(self.message)  # body, to = "+14159919818", from_ = phone_number
+                        messaging(translation)  # body, to = "+14159919818", from_ = phone_number
                         print("Message sent. Thank you")
                         new_cond = False
                         self.menu()
@@ -116,6 +117,7 @@ class User:
                     new_cond = False
                     self.menu()
                 else:
+                    print("Your input wasn't accepted.")
                     continue
             elif return_to_menu(key_num):
                 new_cond = False
@@ -137,9 +139,9 @@ class User:
 
         socket.send_json({'lang': lang, 'text': text})
         time.sleep(.5)
-        message = socket.recv_json
+        message = socket.recv_json()
         socket.close()
-        return message
+        return message['text']
 
     def sign_up(self):
         print("\nWelcome to our signup menu:")
@@ -219,7 +221,7 @@ class User:
 
     def more_options():
         print("There are no more options.")
-        menu()
+        self.menu()
         return
 
     def signed_menu(self):

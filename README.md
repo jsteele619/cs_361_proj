@@ -7,4 +7,5 @@
 
 <p>The microservice my partner is supplying is a translation service via a listening server. The server receives a request with json object {'lang': language, 'text': text} and responses with a json object {'text': text} .</p>
 
-![IMG_2438](https://user-images.githubusercontent.com/68666303/219252393-16c4eabd-7701-442d-9875-0b532cd6f56f.jpeg)
+
+![IMG_2464](https://user-images.githubusercontent.com/68666303/219252607-68c8b59b-ed80-4dd8-b2df-e2483ae8485d.jpeg)

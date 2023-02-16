@@ -6,3 +6,5 @@
 <p>The microservice I'm supplying is a listening server that sends a text message. You request the server with a json object {'phone_num': number, 'message': message}. My server will then respond with a json object with either 200 (success) or 400 (error) message with details. </p>
 
 <p>The microservice my partner is supplying is a translation service via a listening server. The server receives a request with json object {'lang': language, 'text': text} and responses with a json object {'text': text} .</p>
+
+![IMG_2438](https://user-images.githubusercontent.com/68666303/219252393-16c4eabd-7701-442d-9875-0b532cd6f56f.jpeg)

@@ -1,6 +1,8 @@
-from message import messaging
+from message import messaging, email_send
 import time
 import zmq
+from email_validator import validate_email, EmailNotValidError
+
 
 
 def menu():
@@ -108,9 +110,78 @@ def text_message():
             continue 
 
 def email():
-    print("This feature hasn't been implemented yet.")
-    time.sleep(3)
-    menu()
+    value = True
+    while value:
+        print("\nPlease enter a valid email address")
+        email = input()
+        if return_to_menu(email):
+            value = False
+            menu()
+        try:                                                                # Check that the email address is valid.
+            validation = validate_email(email, check_deliverability=True)
+        except EmailNotValidError as e:
+            print(str(e))
+            continue
+        print("\nYou entered: " + email)
+        print("Is that correct? Press 1 for yes, 2 for no.")
+        key_num = input()
+        if key_num == "1":
+            value = False
+        if return_to_menu(email):
+            value = False
+            menu()
+    
+    new_value = True
+    while new_value:
+        print("\nPlease type your subject message and press enter when finished.")
+        subject = input()
+        print("\nPress 1 to continue. Press 2 to edit. Press 3 to translate.")
+        key_num = input()
+        if key_num == "1":
+            new_value = False
+        elif key_num == "2":
+            continue
+        elif key_num == "3":
+            subject = comm_translate(subject, "German")
+            print("Your translation: " + subject)
+        elif return_to_menu(key_num):
+            new_value = False
+            menu()
+        new_value = False
+    
+    newer_val = True
+    while newer_val:
+        print("\nPlease type your content message and press enter when finished.")
+        content = input()
+        print("\nPress 1 to continue. Press 2 to edit. Press 3 to translate.")
+        key_num = input()
+        if key_num == "1":
+            newer_val = False
+        elif key_num == "2":
+            continue
+        elif key_num == "3":
+            content = comm_translate(content, "German")
+            print("Your translation: " + content)
+        elif return_to_menu(key_num):
+            newer_val = False
+            menu()
+        newer_val = False
+    print("\nEmail Review")
+    print("  Recipient: " + email)
+    print("  Subject Line: " + subject)
+    print("  Message Content: " + content)
+    print("\nIf correct, press 1 to send. If not, press h to return to main menu")
+
+    key_number = input()
+    if key_number == "1":
+        try:
+            email_send(email, subject, content)
+            print("\nEmail sent. Thank you")
+            menu()
+        except Exception as e:
+            print("An error has occured: " + e)
+            print("/n Please try again")
+            menu()
 
 def comm_translate(text, lang):
 

@@ -10,7 +10,7 @@ def menu():
     print("\nWelcome to the Text Messaging Application \n" )
     print(" - To send a text message, press 1 then enter.")
     print(" - To send an email, press 2 then enter.")
-    print(" - To see more options, press 3 then enter.")
+    print(" - To translate your text, press 3 then enter.")
     print(" - To return to the main menu, press h then enter at any time.")
     print(" - To quit this application, press q then enter.")
 
@@ -24,7 +24,7 @@ def menu():
             email()
         elif key_press == "3": 
             key_press = False
-            more_options() 
+            translation() 
         elif key_press == "h":
             key_press = False
             menu()
@@ -79,7 +79,7 @@ def text_message():
         elif key_num == "3":
             translation = comm_translate(message, "German")
             print(translation)
-            print("\nPress 1 to send. Press 2 to edit. Press h for more options.")
+            print("\nPress 1 to send. Press 2 to edit. Press h for more options.")          
             key_num = input()
             if key_num == "1":
                 new_cond = False
@@ -170,7 +170,7 @@ def email():
     print("  Recipient: " + email)
     print("  Subject Line: " + subject)
     print("  Message Content: " + content)
-    print("\nIf correct, press 1 to send. If not, press h to return to main menu")
+    print("\nIf correct, press 1 to send. If not, press anything to return to main menu")
 
     key_number = input()
     if key_number == "1":
@@ -182,8 +182,28 @@ def email():
             print("An error has occured: " + e)
             print("/n Please try again")
             menu()
+    else:
+        menu()
 
 def comm_translate(text, lang):
+    val = True
+    while val:
+        print("\nPress 1 for French, 2 for German, 3 for Spanish, 4 for Danish, and 5 for Italian")
+        key_num = input()
+        if key_num == "1":
+            lang = "French"
+        elif key_num == "2":
+            lang = "German"
+        elif key_num == "3":
+            lang = "Spanish"
+        elif key_num == "4":
+            lang = "Danish"
+        elif key_num == "5":
+            lang = "Italian"
+        else:
+            print("Sorry that wasn't a valid input. Please try again")
+            continue
+        val = False
 
     context = zmq.Context()
     socket = context.socket(zmq.REQ)
@@ -195,8 +215,11 @@ def comm_translate(text, lang):
     socket.close()
     return message['text']
 
-def more_options():
-    print("There are no more options.")
+def translation():
+    print("\nPlease type your text")
+    text = input()
+    content = comm_translate(text, "German")
+    print(content)
     menu()
     return
 
